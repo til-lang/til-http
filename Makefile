@@ -10,3 +10,6 @@ test:
 
 til:
 	git clone https://github.com/til-lang/til.git til
+
+clean:
+	-rm dist/*.so
