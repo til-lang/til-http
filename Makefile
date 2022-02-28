@@ -1,4 +1,4 @@
-libtil_http.so: source/app.d
+dist/libtil_http.so: til source/app.d
 	ldc2 --shared source/app.d \
 		-I=til/source \
 		-link-defaultlib-shared \
@@ -7,3 +7,6 @@ libtil_http.so: source/app.d
 
 test:
 	til/til.release test.til
+
+til:
+	git clone https://github.com/til-lang/til.git til
