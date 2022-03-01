@@ -2,7 +2,7 @@ dist/libtil_http.so: til source/app.d
 	ldc2 --shared source/app.d \
 		-I=til/source \
 		-link-defaultlib-shared \
-		-L-L${PWD}/dist -L-L${LIBTIL_PATH} -L-ltil \
+		-L-L${PWD}/dist -L-L${PWD}/til/dist -L-ltil \
 		--O2 -of=dist/libtil_http.so
 
 test:
