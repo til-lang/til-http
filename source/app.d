@@ -1,4 +1,5 @@
 import std.net.curl;
+import std.stdio;
 
 import til.nodes;
 
@@ -44,8 +45,14 @@ extern (C) CommandsMap getCommands(Escopo escopo)
         {
             http.setPostData(context.pop!string(), "application/json");
         }
+        else
+        {
+            http.setPostData(null, "application/json");
+        }
 
+        writeln("Sending the POST request: ", address);
         auto content = post(address, [], http);
+        writeln("Returned.");
         return context.push(to!string(content));
     });
 
