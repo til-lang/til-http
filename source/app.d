@@ -11,7 +11,29 @@ extern (C) CommandsMap getCommands(Escopo escopo)
     commands["get"] = new Command((string path, Context context)
     {
         string address = context.pop!string();
-        auto content = get(address);
+        auto http = HTTP();
+
+        foreach (item; context.items)
+        {
+            // (header value)
+            auto pair = context.pop!SimpleList();
+            auto returnedContext = pair.evaluate(context, true);
+            pair = returnedContext.pop!SimpleList();
+
+            if (pair.items.length != 2)
+            {
+                return context.error(
+                    "Headers arguments should be pairs of key / value",
+                    ErrorCode.InvalidSyntax,
+                    "http"
+                );
+            }
+            auto key = pair.items[0].toString();
+            auto value = pair.items[1].toString();
+            http.addRequestHeader(key, value);
+        }
+
+        auto content = get(address, http);
         return context.push(to!string(content));
     });
     commands["post"] = new Command((string path, Context context)
