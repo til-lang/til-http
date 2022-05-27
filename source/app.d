@@ -16,7 +16,7 @@ extern (C) CommandsMap getCommands(Escopo escopo)
         foreach (item; context.items)
         {
             // (header value)
-            auto pair = context.pop!SimpleList();
+            auto pair = cast(SimpleList)item;
             auto returnedContext = pair.evaluate(context, true);
             pair = returnedContext.pop!SimpleList();
 
