@@ -24,6 +24,9 @@ extern (C) CommandsMap getCommands(Escopo escopo)
         {
             // (header value)
             auto pair = context.pop!SimpleList();
+            auto returnedContext = pair.evaluate(context, true);
+            pair = returnedContext.pop!SimpleList();
+
             if (pair.items.length != 2)
             {
                 return context.error(
